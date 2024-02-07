@@ -1,0 +1,32 @@
+name: Deployment
+
+on:
+  push:
+    branches: [ "master" ]
+
+env:
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+  SSH_PORT: ${{ vars.SSH_PORT }}
+  SSH_USER: ${{ vars.SSH_USER }}
+  SSH_IP: ${{ vars.SSH_IP }}
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create SSH Directory
+        run: mkdir ~/.ssh
+
+      - name: Install SSH Private Key
+        run: echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+
+      - name: Permissions for SSH Private Key
+        run: chmod 600 ~/.ssh/id_rsa
+
+      - name: Install SSH Known Hosts
+        run: echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts
+
+      - name: Update
+        run: ssh -p $SSH_PORT $SSH_USER@$SSH_IP '~/repository/paypal-laravel/.github/environments/live/update.sh'
