@@ -7,7 +7,7 @@
     <link rel="icon" type="image/x-icon" href="https://assets.edlin.app/favicon/favicon.ico">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://assets.edlin.app/bootstrap/v5.2/bootstrap.css">
+    <link rel="stylesheet" href="https://assets.edlin.app/bootstrap/v5.3/bootstrap.css">
 
     <!-- Title -->
     <title>PayPal Laravel</title>
@@ -24,14 +24,14 @@
             <h1>PayPal Laravel</h1>
         </div>
     </div>
-    <div class="row mt-3">
+    <div class="row mt-4">
         <div class="col-12">
-            <div class="links">
-                <a href="https://edlin.xyz/website" target="_blank">Home</a>
-                <a href="https://edlin.xyz/portfolio" target="_blank">Portfolio</a>
-                <a href="https://edlin.xyz/contact" target="_blank">Contact</a>
-                <a href="https://edlin.xyz/linkedin" target="_blank">LinkedIn</a>
-                <a href="https://edlin.xyz/github/paypal-laravel" target="_blank">GitHub (Source Code)</a>
+            <div class="links h5">
+                <a class="text-decoration-none mx-3" href="https://edlin.xyz/website" target="_blank">Home</a>
+                <a class="text-decoration-none mx-3" href="https://edlin.xyz/portfolio" target="_blank">Portfolio</a>
+                <a class="text-decoration-none mx-3" href="https://edlin.xyz/contact" target="_blank">Contact</a>
+                <a class="text-decoration-none mx-3" href="https://edlin.xyz/linkedin" target="_blank">LinkedIn</a>
+                <a class="text-decoration-none mx-3" href="https://edlin.xyz/github/paypal-laravel" target="_blank">GitHub</a>
             </div>
         </div>
     </div>
