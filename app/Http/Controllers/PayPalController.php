@@ -6,8 +6,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Http;
-use Exception;
-use Throwable;
 
 class PayPalController extends Controller
 {
@@ -19,32 +17,20 @@ class PayPalController extends Controller
         return view('app');
     }
 
-    private function getAuthAssertionValue($clientId, $sellerPayerId)
+    /**
+     * @return string
+     */
+    private function getAccessToken(): string
     {
-
-        //        pre(config('paypal.mode'));
-//        pre(config('paypal.client_secret'));
-//        pre(config('paypal.currency'));
-//
-//        $response = Http::get('https://api.edlin.app/v1/hello-world');
-//        pre($response->body());
-
-        $jwt = getAuthAssertionValue(config('paypal.client_id'), "SELLER-PAYER-ID");
-
-        pre($jwt);
-
-        $header = [
-            'alg' => "none"
+        $headers = [
+            'Content-Type'  => 'application/x-www-form-urlencoded',
+            'Authorization' => 'Basic ' . base64_encode(config('paypal.client_id') . ':' . config('paypal.client_secret'))
         ];
 
-        return base64_encode($header);
+        $response = Http::withHeaders($headers)
+                        ->withBody('grant_type=client_credentials')
+                        ->post('https://api-m.sandbox.paypal.com/v1/oauth2/token');
 
-//            const encodedHeader = base64url(header);
-//            const payload       = {
-//            "iss": clientId,
-//                "payer_id": sellerPayerId
-//            };
-//            const encodedPayload = base64url(payload);
-//            return `${encodedHeader}.${encodedPayload}.`;
+        return json_decode($response->body())->access_token;
     }
 }
