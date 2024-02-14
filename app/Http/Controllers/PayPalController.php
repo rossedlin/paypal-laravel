@@ -13,6 +13,6 @@ class PayPalController extends Controller
      */
     public function __invoke(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('checkout');
+        return view('app');
     }
 }
