@@ -14,7 +14,7 @@ class PayPalController extends Controller
      */
     public function __invoke(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('app');
+        return view('checkout');
     }
 
     /**
@@ -32,5 +32,52 @@ class PayPalController extends Controller
                         ->post('https://api-m.sandbox.paypal.com/v1/oauth2/token');
 
         return json_decode($response->body())->access_token;
+    }
+
+    /**
+     * @return string
+     */
+    public function create(): string
+    {
+        $headers = [
+            'Content-Type'      => 'application/json',
+            'Authorization'     => 'Bearer ' . $this->getAccessToken(),
+            'PayPal-Request-Id' => uuid_create(),
+        ];
+
+        $body = [
+            "intent"         => "CAPTURE",
+            "purchase_units" => [
+                [
+                    "reference_id" => uuid_create(),
+                    "amount"       => [
+                        "currency_code" => "GBP",
+                        "value"         => "10.00"
+                    ]
+                ]
+            ]
+        ];
+
+        $response = Http::withHeaders($headers)
+                        ->withBody(json_encode($body))
+                        ->post('https://api-m.sandbox.paypal.com/v2/checkout/orders');
+
+        return json_decode($response->body())->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function complete()
+    {
+        $headers = [
+            'Content-Type'  => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getAccessToken(),
+        ];
+
+        $response = Http::withHeaders($headers)
+                        ->post('https://api-m.sandbox.paypal.com/v2/checkout/orders/ORDER_ID/capture');
+
+        return json_decode($response->body())->id;
     }
 }
