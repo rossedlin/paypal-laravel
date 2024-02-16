@@ -46,7 +46,7 @@ docker compose run --rm web bash -c "npm install vue vue-loader@next @vitejs/plu
 #
 curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/vite.config.js -o ./vite.config.js
 curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/routes/web.php -o ./routes/web.php
-curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/app/Http/Controllers/PayPalController.php -o ./app/Http/Controllers/PayPalController.php
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/app/Http/Controllers/PayPalController.php -o ./app/Http/Controllers/PayPalController.php
 curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/resources/js/app.js -o ./resources/js/app.js
 curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/resources/js/App.vue -o ./resources/js/App.vue
 curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/resources/views/app.blade.php -o ./resources/views/app.blade.php
