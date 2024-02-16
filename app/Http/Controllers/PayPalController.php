@@ -81,7 +81,7 @@ class PayPalController extends Controller
         ];
 
         $response = Http::withHeaders($headers)
-                        ->post($url);
+                        ->post($url, null);
 
         return json_decode($response->body());
     }
