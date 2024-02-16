@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class PayPalController extends Controller
 {
     /**
-     * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+     * @noinspection PhpMissingReturnTypeInspection
      */
-    public function __invoke(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function index()
     {
         return view('checkout');
     }
@@ -39,17 +37,19 @@ class PayPalController extends Controller
      */
     public function create(): string
     {
+        $id = uuid_create();
+
         $headers = [
             'Content-Type'      => 'application/json',
             'Authorization'     => 'Bearer ' . $this->getAccessToken(),
-            'PayPal-Request-Id' => uuid_create(),
+            'PayPal-Request-Id' => $id,
         ];
 
         $body = [
             "intent"         => "CAPTURE",
             "purchase_units" => [
                 [
-                    "reference_id" => uuid_create(),
+                    "reference_id" => $id,
                     "amount"       => [
                         "currency_code" => "GBP",
                         "value"         => "10.00"
@@ -62,6 +62,9 @@ class PayPalController extends Controller
                         ->withBody(json_encode($body))
                         ->post('https://api-m.sandbox.paypal.com/v2/checkout/orders');
 
+        Session::put('request_id', $id);
+        Session::put('order_id', json_decode($response->body())->id);
+
         return json_decode($response->body())->id;
     }
 
@@ -70,14 +73,16 @@ class PayPalController extends Controller
      */
     public function complete()
     {
+        $url = 'https://api-m.sandbox.paypal.com/v2/checkout/orders/' . Session::get('order_id') . '/capture';
+
         $headers = [
             'Content-Type'  => 'application/json',
             'Authorization' => 'Bearer ' . $this->getAccessToken(),
         ];
 
         $response = Http::withHeaders($headers)
-                        ->post('https://api-m.sandbox.paypal.com/v2/checkout/orders/ORDER_ID/capture');
+                        ->post($url);
 
-        return json_decode($response->body())->id;
+        return json_decode($response->body());
     }
 }
