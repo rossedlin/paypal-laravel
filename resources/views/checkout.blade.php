@@ -8,6 +8,8 @@
 
   <link rel="stylesheet" href="https://assets.edlin.app/bootstrap/v5.3/bootstrap.css">
 
+  <script src="https://www.paypal.com/sdk/js?client-id={{config('paypal.client_id')}}&currency=GBP&intent=capture"></script>
+
   <!-- Title -->
   <title>PayPal Laravel</title>
 </head>
@@ -97,54 +99,36 @@
 </div>
 </body>
 <script>
-  let url_to_head = (url) => {
-    return new Promise(function (resolve, reject) {
-      let script = document.createElement('script');
-      script.src = url;
-      script.onload = function () {
-        resolve();
-      };
-      script.onerror = function () {
-        reject('Error loading script.');
-      };
-      document.head.appendChild(script);
-    });
-  }
+  paypal.Buttons({
+    createOrder: function () {
+      return fetch("/create/" + document.getElementById("paypal-amount").value)
+        .then((response) => response.text())
+        .then((id) => {
+          return id;
+        });
+    },
 
-  url_to_head('https://www.paypal.com/sdk/js?client-id={{config('paypal.client_id')}}&currency=GBP&intent=capture')
-    .then(() => {
+    onApprove: function () {
+      return fetch("/complete", {method: "post", headers: {"X-CSRF-Token": '{{csrf_token()}}'}})
+        .then((response) => response.json())
+        .then((order_details) => {
+          console.log(order_details);
+          document.getElementById("paypal-success").style.display = 'block';
+          //paypal_buttons.close();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
 
-      paypal.Buttons({
-        createOrder: function () {
-          return fetch("/create/" + document.getElementById("paypal-amount").value)
-            .then((response) => response.text())
-            .then((id) => {
-              return id;
-            });
-        },
+    onCancel: function (data) {
+      //todo
+    },
 
-        onApprove: function () {
-          return fetch("/complete", {method: "post", headers: {"X-CSRF-Token": '{{csrf_token()}}'}})
-            .then((response) => response.json())
-            .then((order_details) => {
-              console.log(order_details);
-              document.getElementById("paypal-success").style.display = 'block';
-              //paypal_buttons.close();
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        },
-
-        onCancel: function (data) {
-          //todo
-        },
-
-        onError: function (err) {
-          //todo
-          console.log(err);
-        }
-      }).render('#payment_options');
-    });
+    onError: function (err) {
+      //todo
+      console.log(err);
+    }
+  }).render('#payment_options');
 </script>
 </html>
