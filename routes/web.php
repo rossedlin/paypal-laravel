@@ -15,5 +15,5 @@ use App\Http\Controllers\PayPalController;
 */
 
 Route::get('/', '\App\Http\Controllers\PayPalController@index');
-Route::get('/create', '\App\Http\Controllers\PayPalController@create');
+Route::get('/create/{amount}', '\App\Http\Controllers\PayPalController@create');
 Route::post('/complete', '\App\Http\Controllers\PayPalController@complete');

@@ -35,7 +35,7 @@ class PayPalController extends Controller
     /**
      * @return string
      */
-    public function create(): string
+    public function create(int $amount = 10): string
     {
         $id = uuid_create();
 
@@ -52,7 +52,7 @@ class PayPalController extends Controller
                     "reference_id" => $id,
                     "amount"       => [
                         "currency_code" => "GBP",
-                        "value"         => "10.00"
+                        "value"         => number_format($amount, 2),
                     ]
                 ]
             ]

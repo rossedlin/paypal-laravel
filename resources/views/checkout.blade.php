@@ -37,7 +37,7 @@
   <div class="row">
     <div class="col-12">
       <div class="row mt-5">
-        <div class="col-12 col-md-6 offset-md-3">
+        <div class="col-12 col-lg-6 offset-lg-3">
           <p>Hey there, I'm a PayPal Payment Page.</p>
 
           <p>Click the button below and you'll be taken to a <a href="https://developer.paypal.com/docs/checkout/"
@@ -61,10 +61,27 @@
         </div>
       </div>
 
-      <div class="row mt-5 mb-5">
-        <div class="col-3"></div>
-        <div class="col-6" id="payment_options"></div>
-        <div class="col-3"></div>
+      <div class="row mt-5" id="paypal-success" style="display: none;">
+        <div class="col-12 col-lg-6 offset-lg-3">
+          <div class="alert alert-success" role="alert">
+            You have successfully sent me money! Thank you!
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row mt-5 mb-0">
+        <div class="col-12 col-lg-6 offset-lg-3">
+          <div class="input-group">
+            <span class="input-group-text">£</span>
+            <input type="text" class="form-control" id="paypal-amount" aria-label="Amount (to the nearest pound)">
+            <span class="input-group-text">.00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3 mb-5">
+        <div class="col-12 col-lg-6 offset-lg-3" id="payment_options"></div>
       </div>
     </div>
   </div>
@@ -96,7 +113,7 @@
 
       paypal.Buttons({
         createOrder: function () {
-          return fetch("/create")
+          return fetch("/create/" + document.getElementById("paypal-amount").value)
             .then((response) => response.text())
             .then((id) => {
               return id;
@@ -108,6 +125,7 @@
             .then((response) => response.json())
             .then((order_details) => {
               console.log(order_details);
+              document.getElementById("paypal-success").style.display = 'block';
               //paypal_buttons.close();
             })
             .catch((error) => {
