@@ -26,10 +26,10 @@ git commit -m "Init"
 
 ## Docker (Setup)
 
-curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/docker-compose.yml -o docker-compose.yml
-curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/up.sh -o up.sh
-curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/down.sh -o down.sh
-curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/bash.sh -o bash.sh
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/youtube/docker-compose.yml -o docker-compose.yml
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/youtube/up.sh -o up.sh
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/youtube/down.sh -o down.sh
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/youtube/bash.sh -o bash.sh
 
 chmod +x ./*.sh
 
@@ -41,15 +41,15 @@ docker compose run --rm web bash -c "php artisan make:controller PayPalControlle
 #
 # GitHub Overrides
 #
-curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/config/paypal.php -o ./config/paypal.php
-curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/routes/web.php -o ./routes/web.php
-curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/app/Http/Controllers/PayPalController.php -o ./app/Http/Controllers/PayPalController.php
-curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/resources/views/checkout.blade.php -o ./resources/views/checkout.blade.php
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/youtube/config/paypal.php -o ./config/paypal.php
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/youtube/routes/web.php -o ./routes/web.php
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/youtube/app/Http/Controllers/PayPalController.php -o ./app/Http/Controllers/PayPalController.php
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/youtube/resources/views/checkout.blade.php -o ./resources/views/checkout.blade.php
 
 #
 # Env
 #
-curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/.env.example -o ./.env.example
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/youtube/.env.example -o ./.env.example
 docker compose run --rm web bash -c "rm .env; cp .env.example .env; php artisan key:generate"
 
 #

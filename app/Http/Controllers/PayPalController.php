@@ -7,17 +7,11 @@ use Illuminate\Support\Facades\Session;
 
 class PayPalController extends Controller
 {
-    /**
-     * @noinspection PhpMissingReturnTypeInspection
-     */
     public function index()
     {
         return view('checkout');
     }
 
-    /**
-     * @return string
-     */
     private function getAccessToken(): string
     {
         $headers = [
@@ -32,9 +26,6 @@ class PayPalController extends Controller
         return json_decode($response->body())->access_token;
     }
 
-    /**
-     * @return string
-     */
     public function create(int $amount = 10): string
     {
         $id = uuid_create();
@@ -68,9 +59,6 @@ class PayPalController extends Controller
         return json_decode($response->body())->id;
     }
 
-    /**
-     * @return mixed
-     */
     public function complete()
     {
         $url = 'https://api-m.sandbox.paypal.com/v2/checkout/orders/' . Session::get('order_id') . '/capture';
