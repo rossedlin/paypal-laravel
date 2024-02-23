@@ -13,17 +13,17 @@
 </head>
 <body>
 <div class="container text-center">
-  <div class="row mt-5">
+  <div class="row mt-3">
     <div class="col-12">
       <img src="https://assets.edlin.app/logo/codewithross/logo-symbol-dark.png" height='100' alt="Ross Edlin Logo"/>
     </div>
   </div>
-  <div class="row mt-5">
+  <div class="row mt-3">
     <div class="col-12">
       <h1>PayPal Laravel</h1>
     </div>
   </div>
-  <div class="row mt-4">
+  <div class="row mt-2">
     <div class="col-12">
       <div class="links h5">
         <a class="text-decoration-none mx-3" href="https://edlin.xyz/website" target="_blank">Home</a>
@@ -34,9 +34,9 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row mt-5">
     <div class="col-12">
-      <div class="row mt-5">
+      <div class="row">
         <div class="col-12 col-lg-6 offset-lg-3">
           <p>Hey there, I'm a PayPal Payment Page.</p>
 
@@ -61,7 +61,7 @@
         </div>
       </div>
 
-      <div class="row mt-5" id="paypal-success" style="display: none;">
+      <div class="row mt-3" id="paypal-success" style="display: none;">
         <div class="col-12 col-lg-6 offset-lg-3">
           <div class="alert alert-success" role="alert">
             You have successfully sent me money! Thank you!
@@ -69,18 +69,21 @@
         </div>
       </div>
 
-
-      <div class="row mt-5 mb-0">
+      <div class="row mt-3">
         <div class="col-12 col-lg-6 offset-lg-3">
           <div class="input-group">
             <span class="input-group-text">£</span>
-            <input type="text" class="form-control" id="paypal-amount" aria-label="Amount (to the nearest pound)">
+            <input type="text"
+                   class="form-control"
+                   id="paypal-amount"
+                   value="10"
+                   aria-label="Amount (to the nearest pound)">
             <span class="input-group-text">.00</span>
           </div>
         </div>
       </div>
 
-      <div class="row mt-3 mb-5">
+      <div class="row mt-3">
         <div class="col-12 col-lg-6 offset-lg-3" id="payment_options"></div>
       </div>
     </div>
