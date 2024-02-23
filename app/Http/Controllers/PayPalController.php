@@ -21,7 +21,7 @@ class PayPalController extends Controller
 
         $response = Http::withHeaders($headers)
                         ->withBody('grant_type=client_credentials')
-                        ->post('https://api-m.sandbox.paypal.com/v1/oauth2/token');
+                        ->post(config('paypal.base_url') . '/v1/oauth2/token');
 
         return json_decode($response->body())->access_token;
     }
@@ -51,7 +51,7 @@ class PayPalController extends Controller
 
         $response = Http::withHeaders($headers)
                         ->withBody(json_encode($body))
-                        ->post('https://api-m.sandbox.paypal.com/v2/checkout/orders');
+                        ->post(config('paypal.base_url'). '/v2/checkout/orders');
 
         Session::put('request_id', $id);
         Session::put('order_id', json_decode($response->body())->id);
@@ -61,7 +61,7 @@ class PayPalController extends Controller
 
     public function complete()
     {
-        $url = 'https://api-m.sandbox.paypal.com/v2/checkout/orders/' . Session::get('order_id') . '/capture';
+        $url = config('paypal.base_url') . '/v2/checkout/orders/' . Session::get('order_id') . '/capture';
 
         $headers = [
             'Content-Type'  => 'application/json',
