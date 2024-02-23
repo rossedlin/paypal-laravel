@@ -1,5 +1,7 @@
 
 # PayPal Laravel
+docker compose down
+docker container prune -f
 
 if [ -e ~/Projects/paypal-laravel-scratch ]; then
     cd ~/Projects/paypal-laravel-scratch || exit;
@@ -24,10 +26,10 @@ git commit -m "Init"
 
 ## Docker (Setup)
 
-curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/docker-compose.yml -o docker-compose.yml
-curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/up.sh -o up.sh
-curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/down.sh -o down.sh
-curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/bash.sh -o bash.sh
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/docker-compose.yml -o docker-compose.yml
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/up.sh -o up.sh
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/down.sh -o down.sh
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/bash.sh -o bash.sh
 
 chmod +x ./*.sh
 
@@ -37,30 +39,18 @@ chmod +x ./*.sh
 docker compose run --rm web bash -c "php artisan make:controller PayPalController"
 
 #
-# NPM (pre)
-#
-docker compose run --rm web bash -c "npm install vue vue-loader@next @vitejs/plugin-vue"
-
-#
 # GitHub Overrides
 #
-curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/vite.config.js -o ./vite.config.js
-curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/routes/web.php -o ./routes/web.php
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/config/paypal.php -o ./config/paypal.php
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/routes/web.php -o ./routes/web.php
 curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/app/Http/Controllers/PayPalController.php -o ./app/Http/Controllers/PayPalController.php
-curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/resources/js/app.js -o ./resources/js/app.js
-curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/resources/js/App.vue -o ./resources/js/App.vue
-curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/resources/views/app.blade.php -o ./resources/views/app.blade.php
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/resources/views/checkout.blade.php -o ./resources/views/checkout.blade.php
 
 #
 # Env
 #
-curl https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/.env.example -o ./.env.example
+curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/rossedlin/paypal-laravel/master/.env.example -o ./.env.example
 docker compose run --rm web bash -c "rm .env; cp .env.example .env; php artisan key:generate"
-
-#
-# NPM (post)
-#
-docker compose run --rm web bash -c "npm run build"
 
 #
 # Git (post)
