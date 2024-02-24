@@ -11,6 +11,15 @@ https://www.youtube.com/watch?v=MBfJEUGNNs0
 https://developer.paypal.com/docs/checkout/standard/integrate/#link-beforeyoubeginyourintegration
 https://laracasts.com/discuss/channels/requests/laravel-8-http-client-how-to-send-a-string-in-a-post-request
 
+I built a PayPal Payment page in 4 minutes, where you can use the standard PayPal button to receive money on your website.
+Just enter the amount and click the PayPal button and hey presto, you've earned money.
+
+OR, they can enter their credit / debit card details if they don't have a PayPal account.
+
+Built using Laravel, using the PayPal API, all in 4 minutes.
+
+Let's go.
+
 ## Requirements
 
 - PHP v8.2
