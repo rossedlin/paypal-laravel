@@ -25,3 +25,8 @@ https://laracasts.com/discuss/channels/requests/laravel-8-http-client-how-to-sen
 
 ## Code
 
+- `.env`
+- `routes/web.php`
+- `config/paypal.php`
+- `app/Http/Controllers/PayPalController.php`
+- `resources/views/checkout.blade.php`
