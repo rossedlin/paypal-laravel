@@ -33,6 +33,9 @@ curl -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/ro
 
 chmod +x ./*.sh
 
+git add .
+git commit -m "Docker"
+
 #
 # Artisan
 #
