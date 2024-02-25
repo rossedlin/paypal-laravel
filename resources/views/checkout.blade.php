@@ -53,11 +53,10 @@
     },
 
     onCancel: function (data) {
-      //todo
+      console.log(data);
     },
 
     onError: function (err) {
-      //todo
       console.log(err);
     }
   }).render('#payment_options');
